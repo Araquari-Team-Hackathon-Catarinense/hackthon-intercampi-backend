@@ -11,6 +11,22 @@ services:
       - "5432:5432"
     volumes:
       - ./db_data:/var/lib/postgresql/data
+    
+  web:
+    build:
+      context: .
+    command: gunicorn django_project.wsgi:application --bind 0.0.0.0:8000
+    environment:
+      - DEBUG=False
+      - DJANGO_SECRET_KEY=KEgGc3GnA9-rCiaaBnzJFKWgzUgxdBnNVrxjQ4JQgM8
+      - DATABASE_URL=postgres://postgres:e0eb17acb14e358ab786bb64149fc9f6@db:5432/banco
+    volumes:
+      - .:/app
+    ports:
+      - "8080:8000"
+    depends_on:
+      - db
+    restart: always
   
 volumes:
   db_data:
