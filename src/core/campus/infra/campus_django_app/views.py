@@ -1,4 +1,4 @@
-from campus.infra.campus_django_app.filters import CampusFilter
+from core.campus.infra.campus_django_app.filters import CampusFilter
 from drf_spectacular.utils import extend_schema
 from rest_framework import status
 from rest_framework.decorators import action

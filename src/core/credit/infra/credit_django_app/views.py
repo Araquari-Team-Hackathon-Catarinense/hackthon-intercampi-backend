@@ -1,5 +1,5 @@
 
-from credit.infra.credit_django_app.filters import CreditFilter
+from core.credit.infra.credit_django_app.filters import CreditFilter
 from rest_framework.viewsets import ModelViewSet
 from .models import Credit
 from .serializers import CreditModelSerializer
