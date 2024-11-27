@@ -6,6 +6,7 @@ from rest_framework_simplejwt.serializers import AuthUser, TokenObtainPairSerial
 from rest_framework_simplejwt.tokens import Token
 
 from core.uploader.infra.uploader_django_app.admin import Document
+from core.campus.infra.campus_django_app.models import Student
 from django_project.settings import BASE_URL
 
 from .models import User
@@ -170,4 +171,3 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
     #         raise serializers.ValidationError('Must include "email" and "password"')
 
     #     return super().validate(attrs)
-
