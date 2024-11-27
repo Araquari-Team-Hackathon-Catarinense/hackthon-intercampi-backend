@@ -5,6 +5,7 @@ from core.uploader.infra.uploader_django_app.models import Document
 from core.uploader.infra.uploader_django_app.serializers import DocumentSerializer
 
 from .models import Campus, Employee, Student
+from core.user.infra.user_django_app.serializers import UserDetailSerializer
 
 
 class CampusSerializer(serializers.ModelSerializer):
@@ -17,6 +18,7 @@ class CampusSerializer(serializers.ModelSerializer):
         ]
 
 class EmployeeSerializer(serializers.ModelSerializer):
+    user = UserDetailSerializer()
     class Meta:
         model = Employee
         fields = [
@@ -30,6 +32,8 @@ class EmployeeSerializer(serializers.ModelSerializer):
 
 
 class StudentSerializer(serializers.ModelSerializer):
+    user = UserDetailSerializer()
+    campus = CampusSerializer()
     class Meta:
         model = Student
         fields = [

@@ -1,8 +1,5 @@
-from core.campus.infra.campus_django_app.filters import CampusFilter
+from core.campus.infra.campus_django_app.filters import CampusFilter, EmployeeFilter, StudentFilter
 from drf_spectacular.utils import extend_schema
-from rest_framework import status
-from rest_framework.decorators import action
-from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
 from core.__seedwork__.domain.exceptions import CompanyNotInHeader
@@ -35,6 +32,7 @@ class CampusViewSet(ModelViewSet):
 class EmployeeViewSet(ModelViewSet):
     queryset = Employee.objects.all()
     http_method_names = ["get", "post", "patch", "delete"]
+    filterset_class = EmployeeFilter
 
     # def get_queryset(self):
     #     company_id = getattr(self.request, "campus_id", None)
@@ -53,6 +51,7 @@ class EmployeeViewSet(ModelViewSet):
 class StudentViewSet(ModelViewSet):
     queryset = Student.objects.all()
     http_method_names = ["get", "post", "patch", "delete"]
+    filterset_class = StudentFilter
 
     # def get_queryset(self):
     #     company_id = getattr(self.request, "campus_id", None)
