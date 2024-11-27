@@ -1,0 +1,38 @@
+{
+	"name": "Virtual Truck Backend Python",
+	"dockerComposeFile": [
+		"../docker-compose.yml",
+		"docker-compose.yml"
+	],
+	"service": "app",
+	"workspaceFolder": "/home/python/app",
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"ms-python.python",
+				"ms-python.black-formatter",
+				"tamasfe.even-better-toml",
+				"ms-python.isort",
+				"ms-python.pylint"
+			],
+			"settings": {
+				"files.insertFinalNewline": true,
+				"files.trimFinalNewlines": true,
+				"files.trimTrailingWhitespace": true,
+				"editor.rulers": [
+					80
+				],
+				"editor.tabSize": 4
+			}
+		}
+	},
+	"features": {
+		"ghcr.io/devcontainers/features/common-utils:2": {},
+		"ghcr.io/devcontainers-contrib/features/zsh-plugins:0": {
+			"plugins": "git git-flow F-Sy-H zsh-autosuggestions zsh-completions",
+			"omzPlugins": "https://github.com/z-shell/F-Sy-H https://github.com/zsh-users/zsh-autosuggestions https://github.com/zsh-users/zsh-completions"
+		},
+		"ghcr.io/stuartleeks/dev-container-features/shell-history:0": {}
+	},
+	"remoteUser": "python"
+}
