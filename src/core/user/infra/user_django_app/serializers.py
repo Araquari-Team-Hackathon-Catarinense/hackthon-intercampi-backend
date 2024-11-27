@@ -6,7 +6,7 @@ from rest_framework_simplejwt.serializers import AuthUser, TokenObtainPairSerial
 from rest_framework_simplejwt.tokens import Token
 
 from core.uploader.infra.uploader_django_app.admin import Document
-from core.campus.infra.campus_django_app.models import Student
+from core.campus.infra.campus_django_app.models import Student, Employee
 from django_project.settings import BASE_URL
 
 from .models import User
@@ -131,12 +131,22 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
         user_id: str = token["user_id"]
         user: User = User.objects.get(id=user_id)
 
-        student = None
+        user_type = None
+
+        user_type_data = None
+
+        if Student.objects.filter(user__id=user_id).exists():
+            student: Student = Student.objects.get(user__id=user_id)
+            user_type_data = student
+            user_type = "student"
+        elif Employee.objects.filter(user__id=user_id).exists():
+            employee: Employee = Employee.objects.get(user__id=user_id)
+            user_type_data = employee
+            user_type = "employee"
+
         campus_json = None
-        if Student.objects.exists():
-            student: Student = Student.objects.filter(user__id=user_id).first()
-        if student is not None:
-            campus: Campus = student.campus
+        if user_type_data is not None:
+            campus: Campus = user_type_data.campus
 
             campus_json = {
                 "id": str(campus.id),
@@ -149,7 +159,17 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
             "email": user.email,
             "avatar": BASE_URL + user.avatar.url if user.avatar else None,
             "campus": campus_json,
+            "user_type": user_type
         }
+
+        if user_type == "student":
+            user_data["registration"] = user_type_data.registration
+            user_data["is_cavalo"] = user_type_data.is_cavalo
+            user_data["classes"] = '3INFO1'
+
+        elif user_type == "employee":
+            user_data["siape"] = user_type_data.siape
+
         token["user"] = user_data
 
         return token

@@ -92,7 +92,6 @@ def register(request):
                 }
             )
 
-        print(len(error))
         if len(error) > 0:
             return Response(error, status=status.HTTP_400_BAD_REQUEST)
 
