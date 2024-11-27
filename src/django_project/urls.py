@@ -15,6 +15,10 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from core.user.domain.actions import forget_password, reset_password, validate_token
 from core.user.infra.user_django_app.views import register
 from django_project.settings import API_VERSION
+from core.cafeteria.infra.cafeteria_django_app.views import (
+    register_entrance,
+    get_active_entrances,
+)
 
 from .router import router
 
@@ -65,7 +69,16 @@ urlpatterns = [
         register,
         name="user-register",
     ),
-    
+    path(
+        f"api/{API_VERSION}/cafeteria/register_entrance/",
+        register_entrance,
+        name="cafeteria-register_entrance",
+    ),
+    path(
+        f"api/{API_VERSION}/cafeteria/get_active_entrances/",
+        get_active_entrances,
+        name="cafeteria-get_active_entrances",
+    ),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 

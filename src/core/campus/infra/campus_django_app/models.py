@@ -2,6 +2,7 @@ import uuid
 
 from django.db import models
 
+
 from core.__seedwork__.infra.django_app.models import BaseModel
 from core.campus.domain.value_objects import ContractType, PersonType
 from core.uploader.infra.uploader_django_app.models import Document
@@ -34,15 +35,7 @@ class Employee(BaseModel):
         return f"{self.user} ({self.campus})"
 
 
-default_free_afternoons = {
-    "sunday": False,
-    "monday": False,
-    "tuesday": False,
-    "wednesday": False,
-    "thursday": False,
-    "friday": False,
-    "saturday": False,
-}
+default_free_afternoons = []
 
 
 class ClassName(models.Model):
