@@ -30,7 +30,7 @@ class EmployeeSerializer(serializers.ModelSerializer):
             "siape"
         ]
         read_only_fields = ["id"]
-        extra_kwargs = {"campus": {"write_only": True}}
+     
 
 class EmployeeCreateSerializer(serializers.ModelSerializer):
     class Meta:
@@ -42,10 +42,7 @@ class EmployeeCreateSerializer(serializers.ModelSerializer):
             "siape"
         ]
         read_only_fields = ["id"]
-        extra_kwargs = {"campus": {"write_only": True}}
-
-
-
+        
 
 
 class ClassNameSerializer(serializers.ModelSerializer):
@@ -55,27 +52,25 @@ class ClassNameSerializer(serializers.ModelSerializer):
             "id",
             "name",
             "free_afternoons",
-            "free_lunch"
+            "free_lunch",
             "campus"
         ]
         read_only_fields = ["id", "campus"]
-        extra_kwargs = {"campus": {"write_only": True}}
+
 
 class StudentSerializer(serializers.ModelSerializer):
     user = UserDetailSerializer()
-    campus = CampusSerializer()
     class_name = ClassNameSerializer()
     class Meta:
         model = Student
         fields = [
             "id",
             "user",
-          
             "registration",
             "class_name",
         ]
         read_only_fields = ["id"]
-        extra_kwargs = {"campus": {"write_only": True}}
+      
 
 class StudentCreateSerializer(serializers.ModelSerializer):
     class Meta:
@@ -87,4 +82,4 @@ class StudentCreateSerializer(serializers.ModelSerializer):
             "class_name",
         ]
         read_only_fields = ["id"]
-        extra_kwargs = {"campus": {"write_only": True}}
+      
