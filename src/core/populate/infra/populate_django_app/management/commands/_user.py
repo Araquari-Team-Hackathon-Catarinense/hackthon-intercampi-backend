@@ -1,6 +1,6 @@
 import random
 
-from core.company.infra.company_django_app.models import Company, Employee
+from core.campus.infra.campus_django_app.models import Campus, Employee
 from core.populate.infra.resources.data_user import drivers_data, users_data
 from core.user.infra.user_django_app.models import Driver, User
 

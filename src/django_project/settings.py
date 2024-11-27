@@ -35,7 +35,7 @@ INSTALLED_APPS = [
     "corsheaders",
     "safedelete",
     "django_filters",
-    "core.company.infra.company_django_app",
+    "core.campus.infra.campus_django_app",
     "core.populate.infra.populate_django_app",
     "core.uploader.infra.uploader_django_app",
     "core.user.infra.user_django_app",
