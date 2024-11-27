@@ -30,7 +30,7 @@ class EmployeeSerializer(serializers.ModelSerializer):
             "siape"
         ]
         read_only_fields = ["id"]
-     
+
 
 class EmployeeCreateSerializer(serializers.ModelSerializer):
     class Meta:
@@ -42,7 +42,7 @@ class EmployeeCreateSerializer(serializers.ModelSerializer):
             "siape"
         ]
         read_only_fields = ["id"]
-        
+
 
 
 class ClassNameSerializer(serializers.ModelSerializer):
@@ -55,7 +55,7 @@ class ClassNameSerializer(serializers.ModelSerializer):
             "free_lunch",
             "campus"
         ]
-        read_only_fields = ["id", "campus"]
+        read_only_fields = ["id"]
 
 
 class StudentSerializer(serializers.ModelSerializer):
@@ -70,7 +70,7 @@ class StudentSerializer(serializers.ModelSerializer):
             "class_name",
         ]
         read_only_fields = ["id"]
-      
+
 
 class StudentCreateSerializer(serializers.ModelSerializer):
     class Meta:
@@ -82,4 +82,3 @@ class StudentCreateSerializer(serializers.ModelSerializer):
             "class_name",
         ]
         read_only_fields = ["id"]
-      

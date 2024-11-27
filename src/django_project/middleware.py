@@ -7,6 +7,7 @@ class CampusMiddleware:
 
     def __call__(self, request):
         request.campus_id = request.headers.get("X-Campus-Id", None)
+        print(request.campus_id)
 
         if request.method in ["POST", "PUT", "PATCH"]:
             if request.content_type == "application/json":

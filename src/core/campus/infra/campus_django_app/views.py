@@ -65,8 +65,8 @@ class StudentViewSet(ModelViewSet):
         campus_id = getattr(self.request, "campus_id", None)
 
         if campus_id:
-            return Student.objects.filter(class_name__campus_id=campus_id)
-        raise CompanyNotInHeader  
+            return Student.objects.filter(class_name__campus__id=campus_id)
+        raise CompanyNotInHeader
 
     def get_serializer_class(self):
         if self.action in ["list", "retrieve"]:
@@ -82,6 +82,7 @@ class ClassNameModelViewSet(ModelViewSet):
     def get_queryset(self):
         campus_id = getattr(self.request, "campus_id", None)
 
+        print
         if campus_id:
             return ClassName.objects.filter(campus__id=campus_id)
         else:
