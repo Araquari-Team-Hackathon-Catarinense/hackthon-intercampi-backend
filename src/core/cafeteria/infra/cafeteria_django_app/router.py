@@ -4,5 +4,5 @@ from .views import DietaryRestrictionsViewSet,MenuViewSet,TurnstileEntranceViewS
 router = DefaultRouter()
 
 router.register(r"cafeteria/dietary-restrictions", DietaryRestrictionsViewSet, basename="cafeteria-dietary-restrictions")
-router.register(r"cafeteria/menu",MenuViewSet, basename ="cafeteria-menu")
-router.register(r"cafeteria/turnstile-entrance", TurnstileEntranceViewSet, basename="cafeteria-turnstile-entrance")
+router.register(r"cafeteria/menus",MenuViewSet, basename ="cafeteria-menu")
+router.register(r"cafeteria/turnstile-entrances", TurnstileEntranceViewSet, basename="cafeteria-turnstile-entrance")

@@ -5,10 +5,10 @@ from drf_spectacular.utils import OpenApiParameter
 class SchemaWithCompany(AutoSchema):
     global_params = [
         OpenApiParameter(
-            name="X-Company-Id",
+            name="X-Campus-Id",
             type=str,
             location=OpenApiParameter.HEADER,
-            description="`UUID of company Id",
+            description="`UUID of campus Id",
             default="51134a9e-ab9b-4d4d-9b34-905250b459a1",
         )
     ]

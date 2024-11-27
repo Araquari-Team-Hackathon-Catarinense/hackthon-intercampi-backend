@@ -8,6 +8,6 @@ from core.campus.infra.campus_django_app.views import (
 
 router = DefaultRouter()
 
-router.register(r"campus/campus", CampusViewSet, basename="campus-campus")
-router.register(r"campus/student", StudentViewSet, basename="campus-student")
+router.register(r"campus/campi", CampusViewSet, basename="campus-campus")
+router.register(r"campus/students", StudentViewSet, basename="campus-student")
 router.register(r"campus/employees", EmployeeViewSet, basename="campus-employee")

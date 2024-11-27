@@ -3,4 +3,4 @@ from .views import CreditModelViewSet
 
 router = DefaultRouter()
 
-router.register(r"credit/credit", CreditModelViewSet, basename="credit-credit")
+router.register(r"credit/credits", CreditModelViewSet, basename="credit-credit")

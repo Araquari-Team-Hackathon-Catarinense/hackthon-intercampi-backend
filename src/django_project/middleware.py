@@ -6,7 +6,7 @@ class CompanyMiddleware:
         self.get_response = get_response
 
     def __call__(self, request):
-        request.company_id = request.headers.get("X-Company-Id", None)
+        request.company_id = request.headers.get("X-Campus-Id", None)
 
         if request.method in ["POST", "PUT", "PATCH"]:
             if request.content_type == "application/json":

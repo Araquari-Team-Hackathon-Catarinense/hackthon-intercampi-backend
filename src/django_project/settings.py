@@ -130,7 +130,7 @@ USE_TZ = True
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_HEADERS = (
     *default_headers,
-    "X-Company-Id",
+    "X-Campus-Id",
 )
 
 # Static files (CSS, JavaScript, Images)
