@@ -6,7 +6,8 @@ from core.__seedwork__.domain.exceptions import CompanyNotInHeader
 from core.campus.infra.campus_django_app.serializers import (
   EmployeeSerializer,
   StudentSerializer,
-  CampusSerializer
+  CampusSerializer,
+  StudentCreateSerializer
 )
 from core.uploader.infra.uploader_django_app.models import Document
 from core.uploader.infra.uploader_django_app.serializers import DocumentUploadSerializer
@@ -63,5 +64,5 @@ class StudentViewSet(ModelViewSet):
     def get_serializer_class(self):
         if self.action in ["list", "retrieve"]:
             return StudentSerializer
-        return StudentSerializer
+        return StudentCreateSerializer
 

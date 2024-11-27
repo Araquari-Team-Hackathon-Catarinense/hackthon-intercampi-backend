@@ -45,3 +45,15 @@ class StudentSerializer(serializers.ModelSerializer):
         ]
         read_only_fields = ["id"]
         extra_kwargs = {"campus": {"write_only": True}}
+
+class StudentCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Student
+        fields = [
+            "id",
+            "user",
+            "campus",
+            "registration",
+        ]
+        read_only_fields = ["id"]
+        extra_kwargs = {"campus": {"write_only": True}}
