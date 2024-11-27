@@ -199,3 +199,5 @@ EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD", "loxe xrdk icwz axgc")
 
 
 API_VERSION = "v1"
+
+MICROSSERVICE_URL = "http://localhost:3005/api/"
