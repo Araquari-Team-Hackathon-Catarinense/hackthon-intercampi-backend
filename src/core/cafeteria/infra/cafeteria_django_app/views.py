@@ -3,7 +3,7 @@ from django.shortcuts import render
 
 from rest_framework.viewsets import ModelViewSet, ReadOnlyModelViewSet
 from .models import DietaryRestrictions, Menu, TurnstileEntrance
-from .serializers import DietaryRestrictionsSerializer, MenuSerializer,  TurnstileEntranceSerializer
+from .serializers import DietaryRestrictionsSerializer, MenuSerializer, TurnstileEntranceSerializer,TurnstileEntranceCreateSerializer, MenuCreateSerializer
 from core.cafeteria.infra.cafeteria_django_app.filters import DietaryRestrictionsFilter, MenuFilter, TurnstileEntranceFilter
 
 from django.utils.timezone import now, timedelta
@@ -33,7 +33,7 @@ class MenuViewSet(ModelViewSet):
             return MenuSerializer
         elif self.action == "retrieve":
             return MenuSerializer
-        return MenuSerializer
+        return MenuCreateSerializer
 
 class TurnstileEntranceViewSet(ModelViewSet):
     queryset = TurnstileEntrance.objects.all()
@@ -45,7 +45,7 @@ class TurnstileEntranceViewSet(ModelViewSet):
             return TurnstileEntranceSerializer
         elif self.action == "retrieve":
             return TurnstileEntranceSerializer
-        return TurnstileEntranceSerializer
+        return TurnstileEntranceCreateSerializer
     
 
 class TurnstileEntranceBeforeMinutesViewSet(ReadOnlyModelViewSet):

@@ -7,6 +7,7 @@ from core.campus.infra.campus_django_app.serializers import (
   EmployeeSerializer,
   StudentSerializer,
   CampusSerializer,
+  EmployeeCreateSerializer,
   StudentCreateSerializer
 )
 from core.uploader.infra.uploader_django_app.models import Document
@@ -45,7 +46,7 @@ class EmployeeViewSet(ModelViewSet):
     def get_serializer_class(self):
         if self.action in ["list", "retrieve"]:
             return EmployeeSerializer
-        return EmployeeSerializer
+        return EmployeeCreateSerializer
 
 
 @extend_schema(tags=["Company"])

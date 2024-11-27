@@ -1,5 +1,6 @@
 import random
 
+from core.class_name.infra.class_django_app.models import ClassName
 from core.campus.infra.campus_django_app.models import Campus, Employee, Student
 from core.populate.infra.resources.data_user import drivers_data, users_data
 from core.user.infra.user_django_app.models import User
@@ -66,6 +67,7 @@ def populate_student() -> None:
 
     companies = list(Campus.objects.all())
     users = list(User.objects.all())
+    class_name = list(ClassName.objects.all())
 
     print("Creating employees...")
     employees_to_create = []

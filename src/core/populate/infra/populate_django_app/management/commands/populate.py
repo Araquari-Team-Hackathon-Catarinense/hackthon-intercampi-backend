@@ -5,7 +5,8 @@ from core.populate.infra.populate_django_app.management.commands import (
     populate_employee,
     populate_users,
     populate_campus,
-    populate_student
+    populate_student,
+    populate_class_name,
    
 )
 
@@ -35,6 +36,13 @@ class Command(BaseCommand):
                 self.__handle_campus()
             if options.get("users"):
                 self.__handle_users()
+            if options.get("employee"):
+                self.__handle_employee()
+            if options.get("student"):
+                self.__handle_student()
+            if options.get("class_name"):
+                self.__handle_class()
+
        
 
             self.stdout.write(self.style.SUCCESS("\nTudo populado com sucesso! :D"))
@@ -51,8 +59,11 @@ class Command(BaseCommand):
     def __handle_users(self):
         self.stdout.write("Populating users data...", ending="")
         populate_users()    
-        
+        self.stdout.write(self.style.SUCCESS("OK"))
 
+    def __handle_class(self):
+        self.stdout.write("Populating class data...", ending="")
+        populate_class_name()
         self.stdout.write(self.style.SUCCESS("OK"))
 
     def __handle_employee(self):
@@ -68,9 +79,11 @@ class Command(BaseCommand):
     def __handle_all(self):
         self.stdout.write("Populating all data...", ending="")
         self.__handle_campus()
+        self.__handle_class()
         self.__handle_users()
         self.__handle_employee()
         self.__handle_student()
+
         
        
         self.stdout.write(self.style.SUCCESS("OK"))
