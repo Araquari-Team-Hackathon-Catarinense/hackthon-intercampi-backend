@@ -3,7 +3,7 @@ from rest_framework import serializers
 from core.uploader.infra.uploader_django_app.models import Document
 from core.uploader.infra.uploader_django_app.serializers import DocumentSerializer
 
-from .models import Campus, Employee, ClassName, Student
+from .models import Campus, Employee, ClassName, Student, Chat
 from core.user.infra.user_django_app.serializers import UserDetailSerializer
 
 
@@ -68,5 +68,17 @@ class StudentCreateSerializer(serializers.ModelSerializer):
             "user",
             "registration",
             "class_name",
+        ]
+        read_only_fields = ["id"]
+
+
+class ChatSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Chat
+        fields = [
+            "id",
+            "student",
+            "questions",
+            "answer"
         ]
         read_only_fields = ["id"]

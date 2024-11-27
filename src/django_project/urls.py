@@ -15,6 +15,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from core.user.domain.actions import forget_password, reset_password, validate_token
 from core.user.infra.user_django_app.views import register
 from django_project.settings import API_VERSION
+<<<<<<< Updated upstream
 from core.credit.infra.credit_django_app.views import (
     PaymentAPIView,
     PaymentDetailAPIView,
@@ -23,6 +24,10 @@ from core.cafeteria.infra.cafeteria_django_app.views import (
     register_entrance,
     get_active_entrances,
 )
+=======
+from core.credit.infra.credit_django_app.views import PaymentAPIView, PaymentDetailAPIView
+from core.campus.infra.campus_django_app.views import ChatGPTGetAPIView
+>>>>>>> Stashed changes
 
 from .router import router
 
@@ -74,6 +79,7 @@ urlpatterns = [
         name="user-register",
     ),
     path("api/v1/payments/", PaymentAPIView.as_view(), name="payment"),
+<<<<<<< Updated upstream
     path(
         "api/v1/payments/<int:payment_id>/",
         PaymentDetailAPIView.as_view(),
@@ -89,6 +95,11 @@ urlpatterns = [
         get_active_entrances,
         name="cafeteria-get_active_entrances",
     ),
+=======
+    path("api/v1/payments/<int:payment_id>/", PaymentDetailAPIView.as_view(), name="payment"),
+    path("api/v1/chatgpt-get/", ChatGPTGetAPIView.as_view(), name="chat-gpt-get"),
+    
+>>>>>>> Stashed changes
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 

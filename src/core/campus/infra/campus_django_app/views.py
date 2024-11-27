@@ -15,11 +15,18 @@ from core.campus.infra.campus_django_app.serializers import (
     EmployeeCreateSerializer,
     StudentCreateSerializer,
     ClassNameSerializer,
+    ChatSerializer
 )
 from core.uploader.infra.uploader_django_app.models import Document
 from core.uploader.infra.uploader_django_app.serializers import DocumentUploadSerializer
 
-from .models import Campus, Employee, Student, ClassName
+from .models import Campus, Employee, Student, ClassName, Chat
+
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+import requests
+from django_project.settings import MICROSSERVICE_URL
 
 
 @extend_schema(tags=["Core"])
@@ -92,3 +99,33 @@ class ClassNameModelViewSet(ModelViewSet):
         if self.action in ["list", "retrieve"]:
             return ClassNameSerializer
         return ClassNameSerializer
+
+
+class ChatModelViewSet(ModelViewSet):
+    queryset = Chat.objects.all()
+    http_method_names = ["get", "post", "patch", "delete"]
+
+    def get_serializer_class(self):
+        return ChatSerializer
+    
+class ChatGPTGetAPIView(APIView):
+    CHATGPT_URL = f"{MICROSSERVICE_URL}chat/chatgpt/"
+    def get (self, request):
+        try:
+            response = requests.get(
+                self.CHATGPT_URL.format(),
+                timeout=10,
+            )
+            if response.status_code == 200:
+                chat_data = response.json()
+                return Response(chat_data, status=response.status_code)
+            else:
+                return Response(
+                    response.json(),
+                    status=response.status_code,
+                )
+        except requests.RequestException as e:
+            return Response(
+                {"error": "Error connecting to microservice", "details": str(e)},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )

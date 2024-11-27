@@ -71,3 +71,17 @@ class Student(BaseModel):
 
     def __str__(self) -> str:
         return f"{self.user})"
+
+
+class Chat(BaseModel):
+    history = models.JSONField(null=True, blank=True) 
+    student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name="chats")
+    questions = models.TextField(null=True, blank=True)
+    answer = models.TextField(null=True, blank=True)
+
+    class Meta:
+        db_table: str = "chat"
+        verbose_name_plural: str = "chats"
+
+    def __str__(self) -> str:
+        return f"{self.student}"
