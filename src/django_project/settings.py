@@ -176,8 +176,8 @@ SIMPLE_JWT = {
 }
 
 SPECTACULAR_SETTINGS = {
-    "TITLE": "Virtual Truck ",
-    "DESCRIPTION": "API para gerenciamento do Virtual Truck, incluindo endpoints e documentação.",
+    "TITLE": "Hackathon ",
+    "DESCRIPTION": "API para gerenciamento do Hackathon, vai se foder concordia.",
     "VERSION": "1.0.0",
 }
 
