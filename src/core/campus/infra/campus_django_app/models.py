@@ -16,6 +16,7 @@ class Campus(BaseModel):
 
     name = models.CharField(max_length=255)
     email = models.EmailField(max_length=255, unique=True)
+    
 
  
     class Meta:

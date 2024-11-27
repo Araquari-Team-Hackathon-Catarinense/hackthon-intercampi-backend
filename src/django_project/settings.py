@@ -36,6 +36,8 @@ INSTALLED_APPS = [
     "safedelete",
     "django_filters",
     "core.campus.infra.campus_django_app",
+    "core.credit.infra.credit_django_app",
+    "core.cafeteria.infra.cafeteria_django_app",
     "core.populate.infra.populate_django_app",
     "core.uploader.infra.uploader_django_app",
     "core.user.infra.user_django_app",

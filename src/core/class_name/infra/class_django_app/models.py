@@ -7,3 +7,5 @@ class ClassName(models.Model):
     free_afternoons = models.JSONField(null=True,blank=True)
     free_lunch = models.BooleanField(default=False)
 
+    def __str__ (self):
+        return self.name
