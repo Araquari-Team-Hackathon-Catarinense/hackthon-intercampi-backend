@@ -24,3 +24,4 @@ class TurnstileEntrance(models.Model):
     entry_time = models.DateTimeField(null=True,blank=True)
     date = models.DateField(null=True, blank=True)
     payment = models.BooleanField(default=False)
+    max_students = models.IntegerField(default=300)

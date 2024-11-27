@@ -1,10 +1,13 @@
 
 from django.shortcuts import render
 
-from rest_framework.viewsets import ModelViewSet
+from rest_framework.viewsets import ModelViewSet, ReadOnlyModelViewSet
 from .models import DietaryRestrictions, Menu, TurnstileEntrance
 from .serializers import DietaryRestrictionsSerializer, MenuSerializer,  TurnstileEntranceSerializer
 from core.cafeteria.infra.cafeteria_django_app.filters import DietaryRestrictionsFilter, MenuFilter, TurnstileEntranceFilter
+
+from django.utils.timezone import now, timedelta
+from datetime import timedelta
 
 
 class DietaryRestrictionsViewSet(ModelViewSet):
@@ -43,3 +46,23 @@ class TurnstileEntranceViewSet(ModelViewSet):
         elif self.action == "retrieve":
             return TurnstileEntranceSerializer
         return TurnstileEntranceSerializer
+    
+
+class TurnstileEntranceBeforeMinutesViewSet(ReadOnlyModelViewSet):
+    queryset = TurnstileEntrance.objects.all()
+    http_method_names = ["get"]
+
+    def get_queryset(self):
+      
+        current_time = now()
+       
+        thirty_minutes_ago = current_time - timedelta(minutes=30)
+
+        return TurnstileEntrance.objects.filter(entry_time__gte=thirty_minutes_ago)
+
+
+    def get_serializer_class(self):
+        if self.action == "list":
+            return TurnstileEntranceSerializer
+        elif self.action == "retrieve":
+            return TurnstileEntranceSerializer
