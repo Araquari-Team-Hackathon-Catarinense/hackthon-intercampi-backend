@@ -1,35 +1,16 @@
-version: '3'
-
+name: hackathon-back
 services:
   db:
-    image: postgres:13
-    container_name: virtual-truck-postgres
+    image: postgres:16
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: virtual_truck
-    ports:
-    - "15432:5432"
-
-  rabbitmq:
-    image: rabbitmq:4.0-management
-    container_name: virtual-truck-rabbitmq
-    ports:
-    - "5672:5672"
-    - "15672:15672"
-    environment:
-      RABBITMQ_DEFAULT_USER: admin
-      RABBITMQ_DEFAULT_PASS: admin
-      RABBITMQ_DEFINITIONS_FILE: /etc/rabbitmq/definitions.json
-    volumes:
-      - ./.docker/rabbitmq/definitions.json:/etc/rabbitmq/definitions.json:ro
+      POSTGRES_PASSWORD: 74913518abbc8cd9433ac8e0b27271af
+      POSTGRES_DB: hackathon_db
     restart: always
-
-  app:
-    build: .
-    container_name: virtual-truck-backend
-    command: ./.docker/entrypoint.sh
-    volumes:
-    - .:/home/python/app
     ports:
-    - "8000:8000"
+      - "5432:5432"
+    volumes:
+      - ./db_data:/var/lib/postgresql/data
+  
+volumes:
+  db_data:

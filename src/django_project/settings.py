@@ -83,13 +83,15 @@ if MODE == "dev":
     }
 elif MODE == "staging":
     DATABASES = {
-        "default": dj_database_url.config(
-            default=os.getenv("DATABASE_URL_STAGING", "sqlite://f{BASE_DIR}/db.sqlite3")
-        )
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": os.environ.get("POSTGRES_DB"),
+            "USER": os.environ.get("POSTGRES_USER"),
+            "PASSWORD": os.environ.get("POSTGRES_PASSWORD"),
+            "HOST": os.environ.get("DATABASE_HOST", "localhost"),
+            "PORT": os.environ.get("DATABASE_PORT", "5432"),
+        }
     }
-    STATIC_ROOT = os.path.join(BASE_DIR, "static")
-    # STATICFILES_STORAGE = os.getenv("STATICFILES_STORAGE")
-    # MEDIA_URL = os.getenv("MEDIA_URL", "/images/")
 
 else:
     DATABASES = {
@@ -97,7 +99,6 @@ else:
             default=os.getenv("DATABASE_URL", "sqlite://f{BASE_DIR}/db.sqlite3")
         )
     }
-
 SIMPLE_JWT = {
     "AUTH_HEADER_TYPES": ("Bearer",),
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=60),
@@ -143,6 +144,8 @@ MEDIA_URL = "/media/"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
+
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
