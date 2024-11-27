@@ -14,6 +14,7 @@ class Menu(models.Model):
     dessert = models.CharField(max_length=255, null=True, blank=True)
     juice = models.CharField(max_length=255, null=True, blank=True)
     dietary_restrictions = models.ManyToManyField(DietaryRestrictions, blank=True, null=True)
+    vegetarian_option = models.CharField(max_length=255, null=True, blank=True)
     date = models.DateField(null=True, blank=True)
 
     def __str__(self):
