@@ -9,7 +9,7 @@ from core.uploader.infra.uploader_django_app.admin import Document
 from django_project.settings import BASE_URL
 
 from .models import Driver, User
-
+from core.campus.infra.campus_django_app.models import Campus, Student
 
 class UserDetailSerializer(serializers.Serializer):
     id = serializers.UUIDField(read_only=True)
@@ -130,24 +130,24 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
         user_id: str = token["user_id"]
         user: User = User.objects.get(id=user_id)
 
-        user_companies = []
-        for employee in user.employees.all():
-            company = {
-                "id": str(employee.company.id),
-                "name": employee.company.name,
-                "avatar": (
-                    BASE_URL + employee.company.avatar.url
-                    if employee.company.avatar
-                    else None
-                ),
+        student = None
+        campus_json = None
+        if Student.objects.exists():
+            student: Student = Student.objects.filter(user__id=user_id).first()
+        if student is not None:
+            campus: Campus = student.campus
+
+            campus_json = {
+                "id": str(campus.id),
+                "name": campus.name,
+                "email": campus.email
             }
-            user_companies.append(company)
 
         user_data: dict = {
             "name": user.name,
             "email": user.email,
             "avatar": BASE_URL + user.avatar.url if user.avatar else None,
-            "companies": user_companies,
+            "campus": campus_json,
         }
         token["user"] = user_data
 
