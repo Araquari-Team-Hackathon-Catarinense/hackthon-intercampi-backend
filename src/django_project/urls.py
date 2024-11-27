@@ -13,6 +13,7 @@ from drf_spectacular.views import (
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 from core.user.domain.actions import forget_password, reset_password, validate_token
+from core.user.infra.user_django_app.views import register
 from django_project.settings import API_VERSION
 
 from .router import router
@@ -58,6 +59,11 @@ urlpatterns = [
         f"api/{API_VERSION}/user/token/refresh/",
         TokenRefreshView.as_view(),
         name="user-token_refresh",
+    ),
+    path(
+        f"api/{API_VERSION}/user/register/",
+        register,
+        name="user-register",
     ),
     
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

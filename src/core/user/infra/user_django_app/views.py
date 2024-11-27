@@ -1,7 +1,7 @@
 from django.forms import model_to_dict
 from drf_spectacular.utils import extend_schema
 from rest_framework import status
-from rest_framework.decorators import action
+from rest_framework.decorators import action, api_view
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
@@ -9,6 +9,9 @@ from core.uploader.infra.uploader_django_app.serializers import DocumentUploadSe
 from core.user.infra.user_django_app.filters import UserFilter
 
 from .models import User
+from core.campus.infra.campus_django_app.models import Student
+from core.campus.infra.campus_django_app.serializers import StudentSerializer
+import json
 from .serializers import (
    
     UserCreateSerializer,

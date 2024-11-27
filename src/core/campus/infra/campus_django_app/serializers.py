@@ -5,8 +5,9 @@ from core.uploader.infra.uploader_django_app.models import Document
 from core.uploader.infra.uploader_django_app.serializers import DocumentSerializer
 
 from .models import Campus, Employee, Student
-from core.user.infra.user_django_app.serializers import UserDetailSerializer
+from core.user.infra.user_django_app.serializers import UserDetailSerializer, UserCreateSerializer
 
+from core.user.infra.user_django_app.models import User
 
 class CampusSerializer(serializers.ModelSerializer):
     class Meta:
