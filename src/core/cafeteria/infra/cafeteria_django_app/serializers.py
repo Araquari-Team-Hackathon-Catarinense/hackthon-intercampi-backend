@@ -25,6 +25,11 @@ class MenuSerializer(serializers.ModelSerializer):
         ]
         read_only_fields = ["id"]
 
+class CreateMenuSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Menu
+        fields = "__all__"
+
 
 class MenuCreateSerializer(serializers.ModelSerializer):
     class Meta:
@@ -46,7 +51,7 @@ class TurnstileEntranceSerializer(serializers.ModelSerializer):
     class Meta:
         model = TurnstileEntrance
         fields = [
-            "id", 
+            "id",
             "student",
             "entry_time",
             "date",
@@ -58,7 +63,7 @@ class TurnstileEntranceCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = TurnstileEntrance
         fields = [
-            "id", 
+            "id",
             "student",
             "entry_time",
             "date",

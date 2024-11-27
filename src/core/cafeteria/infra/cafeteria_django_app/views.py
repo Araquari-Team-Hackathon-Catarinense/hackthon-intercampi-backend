@@ -21,7 +21,7 @@ class DietaryRestrictionsViewSet(ModelViewSet):
         elif self.action == "retrieve":
             return DietaryRestrictionsSerializer
         return DietaryRestrictionsSerializer
-    
+
 
 class MenuViewSet(ModelViewSet):
     queryset = Menu.objects.all()
@@ -46,16 +46,16 @@ class TurnstileEntranceViewSet(ModelViewSet):
         elif self.action == "retrieve":
             return TurnstileEntranceSerializer
         return TurnstileEntranceCreateSerializer
-    
+
 
 class TurnstileEntranceBeforeMinutesViewSet(ReadOnlyModelViewSet):
     queryset = TurnstileEntrance.objects.all()
     http_method_names = ["get"]
 
     def get_queryset(self):
-      
+
         current_time = now()
-       
+
         thirty_minutes_ago = current_time - timedelta(minutes=30)
 
         return TurnstileEntrance.objects.filter(entry_time__gte=thirty_minutes_ago)
