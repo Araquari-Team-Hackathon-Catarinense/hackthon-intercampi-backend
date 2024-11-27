@@ -13,7 +13,7 @@ class DietaryRestrictionsSerializer(serializers.ModelSerializer):
         read_only_fields = ["id"]
         
 class MenuSerializer(serializers.ModelSerializer):
-    dietary_restrictions = DietaryRestrictionsSerializer()
+    dietary_restrictions = DietaryRestrictionsSerializer(many=True)
     class Meta:
         model = Menu
         fields = [
