@@ -2,7 +2,7 @@
 from django.shortcuts import render
 
 from rest_framework.viewsets import ModelViewSet
-from .models import DietaryRestrictions, Menu, TurnstileEntrance, 
+from .models import DietaryRestrictions, Menu, TurnstileEntrance
 from .serializers import DietaryRestrictionsSerializer, MenuSerializer,  TurnstileEntranceSerializer
 
 
