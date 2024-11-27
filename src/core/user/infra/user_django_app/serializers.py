@@ -8,8 +8,8 @@ from rest_framework_simplejwt.tokens import Token
 from core.uploader.infra.uploader_django_app.admin import Document
 from django_project.settings import BASE_URL
 
-from .models import Driver, User
-from core.campus.infra.campus_django_app.models import Campus, Student
+from .models import User
+
 
 class UserDetailSerializer(serializers.Serializer):
     id = serializers.UUIDField(read_only=True)
@@ -171,39 +171,3 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
 
     #     return super().validate(attrs)
 
-
-class DriverListSerializer(serializers.Serializer):
-    id = serializers.UUIDField(read_only=True)
-    license_number = serializers.CharField(read_only=True)
-    license_category = serializers.CharField(read_only=True)
-    valid_until_license = serializers.DateField(read_only=True)
-    phone = serializers.CharField(read_only=True)
-    user = ParcialUserSerializer(read_only=True)
-
-    def create(self, validated_data):
-        return NotImplementedError
-
-    def update(self, instance, validated_data):
-        return NotImplementedError
-
-
-class DriverCreateSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Driver
-        fields = [
-            "license_number",
-            "license_category",
-            "valid_until_license",
-            "phone",
-            "user",
-        ]
-        read_only_fields = ["id"]
-
-    def validate(self, attrs):
-        valid_until_license = attrs.get("valid_until_license")
-        date = datetime.date.today()
-        if valid_until_license < date:
-            raise serializers.ValidationError(
-                [{"valid_until_license": "Data de validade expirada."}]
-            )
-        return attrs

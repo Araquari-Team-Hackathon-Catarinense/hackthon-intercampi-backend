@@ -9,11 +9,6 @@ from core.user.infra.user_django_app.models import User
 
 
 class Campus(BaseModel):
-
-    PERSON_TYPE_CHOICES = [
-        (person_type.name, person_type.value) for person_type in PersonType
-    ]
-
     name = models.CharField(max_length=255)
     email = models.EmailField(max_length=255, unique=True)
     

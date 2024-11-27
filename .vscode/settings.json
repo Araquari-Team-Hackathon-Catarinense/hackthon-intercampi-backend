@@ -4,7 +4,8 @@
   ],
   "python.analysis.extraPaths": [
     "${workspaceFolder}/__pypackages__/3.12/lib",
-    "./src/core"
+    "./src/core",
+    "./src"
   ],
   "python.testing.autoTestDiscoverOnSaveEnabled": true,
   "python.analysis.autoImportCompletions": true,

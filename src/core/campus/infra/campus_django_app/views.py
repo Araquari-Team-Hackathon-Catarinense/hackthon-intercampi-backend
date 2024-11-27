@@ -1,3 +1,4 @@
+from campus.infra.campus_django_app.filters import CampusFilter
 from drf_spectacular.utils import extend_schema
 from rest_framework import status
 from rest_framework.decorators import action
@@ -20,7 +21,7 @@ from .models import Campus, Employee, Student
 class CampusViewSet(ModelViewSet):
     queryset = Campus.objects.all()
     http_method_names = ["get", "post", "patch", "delete"]
-    # filterset_class = CompanyFilter
+    filterset_class = CampusFilter
 
     def get_serializer_class(self):
         if self.action == "list":
@@ -35,12 +36,12 @@ class EmployeeViewSet(ModelViewSet):
     queryset = Employee.objects.all()
     http_method_names = ["get", "post", "patch", "delete"]
 
-    def get_queryset(self):
-        company_id = getattr(self.request, "campus_id", None)
+    # def get_queryset(self):
+    #     company_id = getattr(self.request, "campus_id", None)
 
-        if company_id:
-            return Employee.objects.filter(company__id=company_id)
-        raise CompanyNotInHeader
+    #     if company_id:
+    #         return Employee.objects.filter(__id=company_id)
+    #     raise CompanyNotInHeader
 
     def get_serializer_class(self):
         if self.action in ["list", "retrieve"]:
@@ -53,12 +54,12 @@ class StudentViewSet(ModelViewSet):
     queryset = Student.objects.all()
     http_method_names = ["get", "post", "patch", "delete"]
 
-    def get_queryset(self):
-        company_id = getattr(self.request, "campus_id", None)
+    # def get_queryset(self):
+    #     company_id = getattr(self.request, "campus_id", None)
 
-        if company_id:
-            return Student.objects.filter(company__id=company_id)
-        raise CompanyNotInHeader
+    #     if company_id:
+    #         return Student.objects.filter(company__id=company_id)
+    #     raise CompanyNotInHeader
 
     def get_serializer_class(self):
         if self.action in ["list", "retrieve"]:

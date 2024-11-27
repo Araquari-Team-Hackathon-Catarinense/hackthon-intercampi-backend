@@ -1,7 +1,7 @@
-# from django_filters.rest_framework import CharFilter
+from django_filters.rest_framework import CharFilter
 
-# from core.__seedwork__.infra.django_app.basefilter import BaseFilter
-# from core.Campus.infra.campus_django_app.models import Company, Contract
+from core.__seedwork__.infra.django_app.basefilter import BaseFilter
+from core.campus.infra.campus_django_app.models import Campus
 
 # # class CompanyFilter(FilterSet):
 # #     search = CharFilter(field_name="search", method="filter_search")
@@ -31,12 +31,13 @@
 #         fields = ["search"]
 
 
-# class ContractFilter(BaseFilter):
-#     type = CharFilter(field_name="contract_type")
-#     search = CharFilter(
-#         field_name="search", method="global_search_for_strings_and_numbers"
-#     )
+class CampusFilter(BaseFilter):
+    name = CharFilter(field_name="campus_name", method="global_filter_for_strings")
+    email = CharFilter(field_name="campus_email", method="global_filter_for_strings")
+    search = CharFilter(
+        field_name="search", method="global_search_for_strings_and_numbers"
+    )
 
-#     class Meta:
-#         model = Contract
-#         fields = ["type", "search"]
+    class Meta:
+        model = Campus
+        fields = ["name", "email","search"]

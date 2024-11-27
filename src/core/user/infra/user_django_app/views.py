@@ -8,10 +8,9 @@ from rest_framework.viewsets import ModelViewSet
 from core.uploader.infra.uploader_django_app.serializers import DocumentUploadSerializer
 from core.user.infra.user_django_app.filters import UserFilter
 
-from .models import Driver, User
+from .models import User
 from .serializers import (
-    DriverCreateSerializer,
-    DriverListSerializer,
+   
     UserCreateSerializer,
     UserDetailSerializer,
     UserListSerializer,
@@ -60,14 +59,3 @@ class UserViewSet(ModelViewSet):
         except Exception as e:
             return Response(str(e), status=status.HTTP_400_BAD_REQUEST)
 
-
-@extend_schema(tags=["User"])
-class DriverViewSet(ModelViewSet):
-    queryset = Driver.objects.all()
-    serializer_class = DriverListSerializer
-    http_method_names = ["get", "post", "patch", "delete"]
-
-    def get_serializer_class(self):
-        if self.action in ["list", "retrieve"]:
-            return DriverListSerializer
-        return DriverCreateSerializer

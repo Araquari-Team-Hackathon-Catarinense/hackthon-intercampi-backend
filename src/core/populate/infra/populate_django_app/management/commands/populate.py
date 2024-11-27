@@ -4,17 +4,19 @@ from django.core.management.base import BaseCommand, CommandError, CommandParser
 from core.populate.infra.populate_django_app.management.commands import (
     populate_employee,
     populate_users,
+    populate_campus,
+    populate_student
+   
 )
-
 
 class Command(BaseCommand):
     help = "Populate the database with the initial data"
 
     def add_arguments(self, parser: CommandParser) -> None:
         parser.add_argument(
-            "--companies",
+            "--campus",
             action="store_true",
-            help="Populate the companies data",
+            help="Populate the campus data",
         )
         parser.add_argument(
             "--users",
@@ -29,10 +31,11 @@ class Command(BaseCommand):
         try:
             if options.get("all"):
                 self.__handle_all()
-            if options.get("companies"):
-                self.__handle_companies()
+            if options.get("campus"):
+                self.__handle_campus()
             if options.get("users"):
                 self.__handle_users()
+       
 
             self.stdout.write(self.style.SUCCESS("\nTudo populado com sucesso! :D"))
         except CommandError as exc:
@@ -40,22 +43,34 @@ class Command(BaseCommand):
         except Exception as e:
             raise CommandError(f"An error occurred: {e}") from e
 
-    def __handle_companies(self):
+    def __handle_campus(self):
         self.stdout.write("Populating companies data...", ending="")
-        # populate_companies()
+        populate_campus()
         self.stdout.write(self.style.SUCCESS("OK"))
 
     def __handle_users(self):
         self.stdout.write("Populating users data...", ending="")
-        populate_users()
+        populate_users()    
+        
 
         self.stdout.write(self.style.SUCCESS("OK"))
 
+    def __handle_employee(self):
+        self.stdout.write("Populating employees data...", ending="")
+        populate_employee()
+        self.stdout.write(self.style.SUCCESS("OK"))
 
+    def __handle_student(self):
+        self.stdout.write("Populating student data...", ending="")
+        populate_student()
+        self.stdout.write(self.style.SUCCESS("OK"))
 
     def __handle_all(self):
         self.stdout.write("Populating all data...", ending="")
-        # self.__handle_companies()
+        self.__handle_campus()
         self.__handle_users()
         self.__handle_employee()
+        self.__handle_student()
+        
+       
         self.stdout.write(self.style.SUCCESS("OK"))
