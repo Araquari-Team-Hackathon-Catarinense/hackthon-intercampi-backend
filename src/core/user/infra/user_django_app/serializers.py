@@ -146,7 +146,10 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
 
         campus_json = None
         if user_type_data is not None:
-            campus: Campus = user_type_data.campus
+            if user_type == "student":
+                campus: Campus = user_type_data.class_name.campus
+            elif user_type == "employee":   
+                campus: Campus = user_type_data.campus
 
             campus_json = {
                 "id": str(campus.id),
@@ -165,7 +168,7 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
         if user_type == "student":
             user_data["registration"] = user_type_data.registration
             user_data["is_cavalo"] = user_type_data.is_cavalo
-            user_data["classes"] = '3INFO1'
+            user_data["classes"] = user_type_data.class_name.name
 
         elif user_type == "employee":
             user_data["siape"] = user_type_data.siape

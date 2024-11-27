@@ -1,4 +1,4 @@
-from core.class_name.infra.class_django_app.models import ClassName
+from core.campus.infra.campus_django_app.models import ClassName
 from core.populate.infra.resources.data_class_name import data_class_name_data
 
 
