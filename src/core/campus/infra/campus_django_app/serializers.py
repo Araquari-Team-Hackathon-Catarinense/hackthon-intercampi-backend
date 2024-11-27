@@ -53,7 +53,7 @@ class ClassNameSerializer(serializers.ModelSerializer):
             "name",
             "free_afternoons",
             "free_lunch",
-            "campus"
+            "campus",
         ]
         read_only_fields = ["id"]
 

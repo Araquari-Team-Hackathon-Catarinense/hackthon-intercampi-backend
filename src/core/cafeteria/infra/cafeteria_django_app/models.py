@@ -13,11 +13,12 @@ class Menu(models.Model):
     main_course = models.CharField(max_length=255, null=True, blank=True)
     dessert = models.CharField(max_length=255, null=True, blank=True)
     juice = models.CharField(max_length=255, null=True, blank=True)
-    dietary_restrictions = models.ManyToManyField(DietaryRestrictions, blank=True)
+    dietary_restrictions = models.ManyToManyField(DietaryRestrictions, blank=True, null=True)
+    date = models.DateField(null=True, blank=True)
 
     def __str__(self):
         return f"{self.garnish} - {self.main_course} - {self.dessert} - {self.juice}"
-    
+
 
 class TurnstileEntrance(models.Model):
     student = models.ForeignKey(Student,on_delete=models.CASCADE, related_name="students")

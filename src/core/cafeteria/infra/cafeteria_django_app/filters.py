@@ -16,10 +16,13 @@ class MenuFilter(BaseFilter):
     search = CharFilter(
         field_name="search", method="global_search_for_strings_and_numbers"
     )
+    date = CharFilter(
+        field_name="date", lookup_expr="exact"
+    )
 
     class Meta:
         model = Menu
-        fields = ["search"]
+        fields = ["search", "date"]
 
 class TurnstileEntranceFilter(BaseFilter):
     search = CharFilter(
@@ -29,4 +32,3 @@ class TurnstileEntranceFilter(BaseFilter):
     class Meta:
         model = TurnstileEntrance
         fields = ["search"]
-

@@ -11,7 +11,7 @@ class DietaryRestrictionsSerializer(serializers.ModelSerializer):
             "description"
         ]
         read_only_fields = ["id"]
-        
+
 class MenuSerializer(serializers.ModelSerializer):
     dietary_restrictions = DietaryRestrictionsSerializer(many=True)
     class Meta:
@@ -22,15 +22,10 @@ class MenuSerializer(serializers.ModelSerializer):
             "main_course",
             "dessert",
             "juice",
-            "dietary_restrictions"
+            "dietary_restrictions",
+            "date"
         ]
         read_only_fields = ["id"]
-
-class CreateMenuSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Menu
-        fields = "__all__"
-
 
 class MenuCreateSerializer(serializers.ModelSerializer):
     class Meta:
@@ -41,7 +36,8 @@ class MenuCreateSerializer(serializers.ModelSerializer):
             "main_course",
             "dessert",
             "juice",
-            "dietary_restrictions"
+            "dietary_restrictions",
+            "date"
         ]
         read_only_fields = ["id"]
 
