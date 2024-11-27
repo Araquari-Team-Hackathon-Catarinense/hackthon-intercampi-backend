@@ -2,7 +2,6 @@ import uuid
 
 from django.db import models
 
-from core.class_name.infra.class_django_app.models import ClassName
 from core.__seedwork__.infra.django_app.models import BaseModel
 from core.campus.domain.value_objects import ContractType, PersonType
 from core.uploader.infra.uploader_django_app.models import Document
@@ -36,8 +35,18 @@ class Employee(BaseModel):
     def __str__(self) -> str:
         return f"{self.user} ({self.campus})"
 
+
+
+class ClassName(models.Model):
+    campus = models.ForeignKey(Campus, on_delete=models.CASCADE, related_name="classname")
+    name = models.CharField(max_length=100, blank=True, null=True)
+    free_afternoons = models.JSONField(null=True,blank=True)
+    free_lunch = models.BooleanField(default=False)
+
+    def __str__ (self):
+        return self.name
+
 class Student(BaseModel):
-    campus = models.ForeignKey(Campus, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="students")
     class_name = models.ForeignKey(ClassName, on_delete=models.CASCADE, related_name="class_name", blank=True, null=True)
     registration = models.CharField(max_length=255, unique=True)
@@ -49,6 +58,6 @@ class Student(BaseModel):
         verbose_name_plural: str = "students"
 
     def __str__(self) -> str:
-        return f"{self.user} ({self.campus})"
+        return f"{self.user})"
 
 

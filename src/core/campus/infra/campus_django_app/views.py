@@ -8,12 +8,13 @@ from core.campus.infra.campus_django_app.serializers import (
   StudentSerializer,
   CampusSerializer,
   EmployeeCreateSerializer,
-  StudentCreateSerializer
+  StudentCreateSerializer, 
+  ClassNameSerializer,
 )
 from core.uploader.infra.uploader_django_app.models import Document
 from core.uploader.infra.uploader_django_app.serializers import DocumentUploadSerializer
 
-from .models import Campus, Employee, Student
+from .models import Campus, Employee, Student, ClassName
 
 
 @extend_schema(tags=["Core"])
@@ -66,4 +67,24 @@ class StudentViewSet(ModelViewSet):
         if self.action in ["list", "retrieve"]:
             return StudentSerializer
         return StudentCreateSerializer
+
+
+
+class ClassNameModelViewSet(ModelViewSet):
+    queryset = ClassName.objects.all()
+    http_method_names = ["get", "post", "patch", "delete"]
+
+    def get_queryset(self):
+        campus_id = getattr(self.request, "campus_id", None)
+
+        if campus_id:
+            return ClassName.objects.filter(campus__id=campus_id)
+        raise CompanyNotInHeader
+
+    def get_serializer_class(self):
+        if self.action in ["list", "retrieve"]:
+            return ClassNameSerializer
+        return ClassNameSerializer
+    
+
 

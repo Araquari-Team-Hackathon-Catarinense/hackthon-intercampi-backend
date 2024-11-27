@@ -1,7 +1,7 @@
 from django_filters.rest_framework import CharFilter, BooleanFilter
 
 from core.__seedwork__.infra.django_app.basefilter import BaseFilter
-from core.campus.infra.campus_django_app.models import Campus, Employee, Student
+from core.campus.infra.campus_django_app.models import Campus, Employee, ClassName
 
 # # class CompanyFilter(FilterSet):
 # #     search = CharFilter(field_name="search", method="filter_search")
@@ -54,16 +54,20 @@ class EmployeeFilter(BaseFilter):
         model = Employee
         fields = ["campus","siape","search"]
 
-class StudentFilter(BaseFilter):
-    campus = CharFilter(field_name="campus__name",  method="global_filter_for_strings")
-    registration = CharFilter(field_name="registration",  method="global_filter_for_strings")   
-    is_cavalo = BooleanFilter(field_name="is_cavalo")
-    
-    search = CharFilter(
-        field_name="search", method="global_search_for_strings_and_numbers"
-    )
+
+class ClassNameFilter(BaseFilter):
+    name = CharFilter(field_name="name", method="global_filter_for_strings")
+    free_lunch = BooleanFilter(field_name="free_lunch")
 
     class Meta:
-        model = Student
-        fields = ["campus","registration","search"]
+        model = ClassName
+        fields = ["name", "free_lunch"]
+
+
+class StudentFilter(BaseFilter):
+    class_name = CharFilter(field_name="student__class_name", method="global_filter_for_strings")
+    registration = CharFilter(field_name="registration", method="global_filter_for_strings")
+    is_cavalo = BooleanFilter(field_name="is_cavalo")
+
+
 

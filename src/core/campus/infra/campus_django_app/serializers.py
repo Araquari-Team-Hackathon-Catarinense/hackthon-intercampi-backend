@@ -4,9 +4,9 @@ from rest_framework import serializers
 from core.uploader.infra.uploader_django_app.models import Document
 from core.uploader.infra.uploader_django_app.serializers import DocumentSerializer
 
-from .models import Campus, Employee, Student
-from core.user.infra.user_django_app.serializers import UserDetailSerializer, UserCreateSerializer
-from core.class_name.infra.class_django_app.serializers import ClassNameSerializer
+from .models import Campus, Employee, ClassName, Student
+from core.user.infra.user_django_app.serializers import UserDetailSerializer
+
 
 from core.user.infra.user_django_app.models import User
 
@@ -45,6 +45,22 @@ class EmployeeCreateSerializer(serializers.ModelSerializer):
         extra_kwargs = {"campus": {"write_only": True}}
 
 
+
+
+
+class ClassNameSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ClassName
+        fields = [
+            "id",
+            "name",
+            "free_afternoons",
+            "free_lunch"
+            "campus"
+        ]
+        read_only_fields = ["id", "campus"]
+        extra_kwargs = {"campus": {"write_only": True}}
+
 class StudentSerializer(serializers.ModelSerializer):
     user = UserDetailSerializer()
     campus = CampusSerializer()
@@ -54,7 +70,7 @@ class StudentSerializer(serializers.ModelSerializer):
         fields = [
             "id",
             "user",
-            "campus",
+          
             "registration",
             "class_name",
         ]
@@ -67,7 +83,6 @@ class StudentCreateSerializer(serializers.ModelSerializer):
         fields = [
             "id",
             "user",
-            "campus",
             "registration",
             "class_name",
         ]
