@@ -3,8 +3,8 @@ from core.campus.infra.campus_django_app.models import Student
 from core.__seedwork__.infra.django_app.models import BaseModel
 
 
-class PaymentSaveModel(BaseModel):
-
+class PaymentSaveModel(models.Model):
+    id = models.CharField(unique=True, max_length=155, primary_key=True)
     status = models.CharField(max_length=155, null=True, blank=True)
     status_detail = models.TextField(null=True, blank=True)
     transaction_amount = models.FloatField(default=0.0, blank=True, null=True)
