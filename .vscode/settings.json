@@ -1,64 +1,47 @@
 {
-    "python.autoComplete.extraPaths": [
-        "${workspaceFolder}/__pypackages__/3.12/lib"
-    ],
-    "python.analysis.extraPaths": [
-        "${workspaceFolder}/__pypackages__/3.12/lib",
-        "./src/core"
-    ],
-    "python.testing.autoTestDiscoverOnSaveEnabled": true,
-    "python.analysis.autoImportCompletions": true,
-    "python.analysis.indexing": true,
-    "python.analysis.packageIndexDepths": [
-        {
-            "name": "django",
-            "includeAllSymbols": true,
-            "depth": 10
-        },
-        {
-            "name": "rest_framework",
-            "includeAllSymbols": true,
-            "depth": 10
-        },
-        {
-            "name": "core",
-            "includeAllSymbols": true,
-            "depth": 10
-        },
-    ],
-    "editor.defaultFormatter": "ms-python.black-formatter",
-    "editor.formatOnSave": true,
-    "editor.codeActionsOnSave": {
-        "source.organizeImports": "always"
+  "python.autoComplete.extraPaths": [
+    "${workspaceFolder}/__pypackages__/3.12/lib"
+  ],
+  "python.analysis.extraPaths": [
+    "${workspaceFolder}/__pypackages__/3.12/lib",
+    "./src/core"
+  ],
+  "python.testing.autoTestDiscoverOnSaveEnabled": true,
+  "python.analysis.autoImportCompletions": true,
+  "python.analysis.indexing": true,
+  "python.analysis.packageIndexDepths": [
+    {
+      "name": "django",
+      "includeAllSymbols": true,
+      "depth": 10
     },
-    "isort.args": [
-        "--profile",
-        "black"
-    ],
-    "peacock.remoteColor": "#832561",
-    "python.testing.unittestEnabled": false,
-    "python.testing.pytestEnabled": true,
-    "workbench.colorCustomizations": {
-        "activityBar.activeBorder": "#441b30",
-        "activityBar.activeBackground": "#ab307e",
-        "activityBar.background": "#ab307e",
-        "activityBar.foreground": "#e7e7e7",
-        "activityBar.inactiveForeground": "#e7e7e799",
-        "activityBarBadge.background": "#25320e",
-        "activityBarBadge.foreground": "#e7e7e7",
-        "commandCenter.border": "#e7e7e799",
-        "sash.hoverBorder": "#ab307e",
-        "statusBar.background": "#832561",
-        "statusBar.foreground": "#e7e7e7",
-        "statusBarItem.hoverBackground": "#ab307e",
-        "statusBarItem.remoteBackground": "#832561",
-        "statusBarItem.remoteForeground": "#e7e7e7",
-        "titleBar.activeBackground": "#832561",
-        "titleBar.activeForeground": "#e7e7e7",
-        "titleBar.inactiveBackground": "#83256199",
-        "titleBar.inactiveForeground": "#e7e7e799"
+    {
+      "name": "rest_framework",
+      "includeAllSymbols": true,
+      "depth": 10
     },
-    "python.testing.pytestArgs": [
-        "src"
-    ]
+    {
+      "name": "core",
+      "includeAllSymbols": true,
+      "depth": 10
+    },
+  ],
+  "editor.defaultFormatter": "ms-python.black-formatter",
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": "always"
+  },
+  "isort.args": [
+    "--profile",
+    "black"
+  ],
+  "peacock.remoteColor": "#832561",
+  "python.testing.unittestEnabled": false,
+  "python.testing.pytestEnabled": true,
+  "workbench.colorCustomizations": {
+    "activityBar.activeBorder": "#441b30"
+  },
+  "python.testing.pytestArgs": [
+    "src"
+  ]
 }

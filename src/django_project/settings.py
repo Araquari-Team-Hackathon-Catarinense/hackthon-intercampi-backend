@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     "core.populate.infra.populate_django_app",
     "core.uploader.infra.uploader_django_app",
     "core.user.infra.user_django_app",
-
+    "core.class_name.infra.class_django_app",
 ]
 
 MIDDLEWARE = [
