@@ -22,7 +22,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from django.utils.timezone import now, timedelta
 from datetime import timedelta
-from src.django_project.pagination import VirtualTruckPagination
+from django_project.pagination import VirtualTruckPagination
 
 
 class DietaryRestrictionsViewSet(ModelViewSet):
