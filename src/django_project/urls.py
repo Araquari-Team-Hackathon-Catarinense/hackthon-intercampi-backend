@@ -15,7 +15,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from core.user.domain.actions import forget_password, reset_password, validate_token
 from core.user.infra.user_django_app.views import register
 from django_project.settings import API_VERSION
-from core.credit.infra.credit_django_app.views import PaymentAPIView
+from core.credit.infra.credit_django_app.views import PaymentAPIView, PaymentDetailAPIView
 
 from .router import router
 
@@ -68,6 +68,7 @@ urlpatterns = [
     ),
     
     path("api/v1/payments/", PaymentAPIView.as_view(), name="payment"),
+    path("api/v1/payments/<int:payment_id>/", PaymentDetailAPIView.as_view(), name="payment"),
 
     
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

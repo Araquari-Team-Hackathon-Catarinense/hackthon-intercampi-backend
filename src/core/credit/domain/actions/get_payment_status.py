@@ -6,10 +6,10 @@ from django_project.settings import MICROSSERVICE_URL
 def get_payment_status(payment_id, args):
     try:
         response = requests.get(f"{MICROSSERVICE_URL}/pay/{payment_id}", timeout=10)
+
         if response.status_code == 200:
             payment_status = response.json()
             print(payment_status)
-            # Atualize o status do pagamento no banco de dados, se necessário
             try:
                 payment = PaymentSaveModel.objects.get(id=payment_id)
                 payment.status = payment_status.get('status')

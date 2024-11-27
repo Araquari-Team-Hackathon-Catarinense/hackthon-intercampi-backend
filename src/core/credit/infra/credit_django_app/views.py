@@ -62,17 +62,35 @@ class PaymentAPIView(APIView):
                     'qr_code_base64': payment_data.get('qrCodeBase64'),
                     'date_approved': payment_data.get('date_approved')
                 }
-
-               
-
+                
                 PaymentSaveModel.objects.create(**payment_data_mapped)
-
-                threading.Timer(5, get_payment_status(self, args=[payment_data['id']])).start()
+                # time.sleep(5)
+                # thread = threading.Thread(target=get_payment_status, args=(payment_data.get('uuid'), None))
+                # thread.start()
                 return Response(payment_data, status=response.status_code)
-        except requests.RequestException as e:
-            return Response(
-                {"error": "Error connecting to microservice", "details": str(e)},
-                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            )
-        
+        except:
+            return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
        
+class PaymentDetailAPIView(APIView):
+        PAYMENT_DETAIL_URL = f"{MICROSSERVICE_URL}/pay/{{}}/"
+
+        def get(self, request, payment_id):
+            try:
+                response = requests.get(
+                    self.PAYMENT_DETAIL_URL.format(payment_id),
+                    timeout=10,
+                )
+
+                if response.status_code == 200:
+                    payment_data = response.json()
+                    return Response(payment_data, status=response.status_code)
+                else:
+                    return Response(
+                        response.json(),
+                        status=response.status_code,
+                    )
+            except requests.RequestException as e:
+                return Response(
+                    {"error": "Error connecting to microservice", "details": str(e)},
+                    status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                )
