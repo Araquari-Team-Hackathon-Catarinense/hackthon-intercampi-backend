@@ -1,24 +1,24 @@
-from core.campus.infra.campus_django_app.models import ClassName
+from core.campus.infra.campus_django_app.models import Campus, ClassName
 from core.populate.infra.resources.data_class_name import data_class_name_data
 
 
+def populate_class_name() -> None:
+    if ClassName.objects.exists():
+        return
 
-def populate_class_name():
-    for item in data_class_name_data:
-        name = item.get("name")
-        free_afternoons = item.get("free_afternoons", [])
-        free_lunch = item.get("free_lunch", False)
+    campuses = [campus for campus in Campus.objects.all()]
+    
+    class_name_to_create: list[ClassName] = []
 
-        # Cria ou atualiza os registros no banco
-        class_obj, created = ClassName.objects.get_or_create(
-            name=name,
-            defaults={
-                "free_afternoons": free_afternoons,
-                "free_lunch": free_lunch,
-            },
-        )
+    for i, data in enumerate(data_class_name_data):
+        campus = campuses[i % len(campuses)]
+        class_name = ClassName(campus=campus, **data)
+        class_name_to_create.append(class_name)
 
-        if created:
-            print(f"ClassName '{name}' foi criada com sucesso.")
-        else:
-            print(f"ClassName '{name}' já existia e não foi alterada.")
+        
+
+    if class_name_to_create:
+        ClassName.objects.bulk_create(class_name_to_create)
+        print("Class names created successfully.")
+    else:
+        print("Nenhum ClassName foi criado. Verifique os dados de entrada.")

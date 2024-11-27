@@ -52,7 +52,7 @@ class Command(BaseCommand):
             raise CommandError(f"An error occurred: {e}") from e
 
     def __handle_campus(self):
-        self.stdout.write("Populating companies data...", ending="")
+        self.stdout.write("Populating campus data...", ending="")
         populate_campus()
         self.stdout.write(self.style.SUCCESS("OK"))
 

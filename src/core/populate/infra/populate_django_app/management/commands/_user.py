@@ -76,7 +76,7 @@ def populate_student() -> None:
         user = random.choice(users) 
         siape = fake.pyint(min_value=11111111111, max_value=99999999999)
 
-        employee = Student(campus=company, user=user, registration=siape)
+        employee = Student(user=user, registration=siape)
         employees_to_create.append(employee)
 
     Student.objects.bulk_create(employees_to_create)

@@ -42,12 +42,12 @@ class EmployeeViewSet(ModelViewSet):
     http_method_names = ["get", "post", "patch", "delete"]
     filterset_class = EmployeeFilter
 
-    # def get_queryset(self):
-    #     company_id = getattr(self.request, "campus_id", None)
+    def get_queryset(self):
+        campus_id = getattr(self.request, "campus_id", None)
 
-    #     if company_id:
-    #         return Employee.objects.filter(__id=company_id)
-    #     raise CompanyNotInHeader
+        if campus_id:
+            return Employee.objects.filter(campus__id=campus_id)
+        raise CompanyNotInHeader
 
     def get_serializer_class(self):
         if self.action in ["list", "retrieve"]:
@@ -61,12 +61,12 @@ class StudentViewSet(ModelViewSet):
     http_method_names = ["get", "post", "patch", "delete"]
     filterset_class = StudentFilter
 
-    # def get_queryset(self):
-    #     company_id = getattr(self.request, "campus_id", None)
+    def get_queryset(self):
+        campus_id = getattr(self.request, "campus_id", None)
 
-    #     if company_id:
-    #         return Student.objects.filter(company__id=company_id)
-    #     raise CompanyNotInHeader
+        if campus_id:
+            return Student.objects.filter(class_name__campus_id=campus_id)
+        raise CompanyNotInHeader  
 
     def get_serializer_class(self):
         if self.action in ["list", "retrieve"]:

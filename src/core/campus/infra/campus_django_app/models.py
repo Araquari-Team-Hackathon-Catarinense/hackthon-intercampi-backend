@@ -13,8 +13,8 @@ class Campus(BaseModel):
     email = models.EmailField(max_length=255, unique=True)
 
     class Meta:
-        db_table: str = "company"
-        verbose_name_plural: str = "companies"
+        db_table: str = "campus"
+        verbose_name_plural: str = "campuses"
 
     def __str__(self) -> str:
         return f"{self.name} ({self.email})"
