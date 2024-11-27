@@ -4,8 +4,8 @@ services:
     image: postgres:16
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 74913518abbc8cd9433ac8e0b27271af
-      POSTGRES_DB: hackathon_db
+      POSTGRES_PASSWORD: e0eb17acb14e358ab786bb64149fc9f6
+      POSTGRES_DB: banco
     restart: always
     ports:
       - "5432:5432"
