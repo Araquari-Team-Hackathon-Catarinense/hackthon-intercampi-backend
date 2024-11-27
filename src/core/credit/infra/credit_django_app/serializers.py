@@ -19,7 +19,7 @@ class PaymentSaveModelSerializer(ModelSerializer):
             "id",
             "status",
             "status_detail",
-            "transaction_amont",
+            "transaction_amount",
             "payment_method",
             "date_created",
             "qr_code",
