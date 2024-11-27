@@ -11,9 +11,7 @@ from core.user.infra.user_django_app.models import User
 class Campus(BaseModel):
     name = models.CharField(max_length=255)
     email = models.EmailField(max_length=255, unique=True)
-    
 
- 
     class Meta:
         db_table: str = "company"
         verbose_name_plural: str = "companies"
@@ -36,19 +34,40 @@ class Employee(BaseModel):
         return f"{self.user} ({self.campus})"
 
 
+default_free_afternoons = {
+    "sunday": False,
+    "monday": False,
+    "tuesday": False,
+    "wednesday": False,
+    "thursday": False,
+    "friday": False,
+    "saturday": False,
+}
+
 
 class ClassName(models.Model):
-    campus = models.ForeignKey(Campus, on_delete=models.CASCADE, related_name="classname")
+    campus = models.ForeignKey(
+        Campus, on_delete=models.CASCADE, related_name="classname"
+    )
     name = models.CharField(max_length=100, blank=True, null=True)
-    free_afternoons = models.JSONField(null=True,blank=True)
+    free_afternoons = models.JSONField(
+        null=True, blank=True, default=default_free_afternoons
+    )
     free_lunch = models.BooleanField(default=False)
 
-    def __str__ (self):
+    def __str__(self):
         return self.name
+
 
 class Student(BaseModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="students")
-    class_name = models.ForeignKey(ClassName, on_delete=models.CASCADE, related_name="class_name", blank=True, null=True)
+    class_name = models.ForeignKey(
+        ClassName,
+        on_delete=models.CASCADE,
+        related_name="class_name",
+        blank=True,
+        null=True,
+    )
     registration = models.CharField(max_length=255, unique=True)
     is_cavalo = models.BooleanField(default=False, blank=True, null=True)
     is_active = models.BooleanField(default=True, blank=True, null=True)
@@ -59,5 +78,3 @@ class Student(BaseModel):
 
     def __str__(self) -> str:
         return f"{self.user})"
-
-

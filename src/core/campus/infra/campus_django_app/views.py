@@ -1,15 +1,20 @@
-from core.campus.infra.campus_django_app.filters import CampusFilter, EmployeeFilter, StudentFilter
+from core.campus.infra.campus_django_app.filters import (
+    CampusFilter,
+    EmployeeFilter,
+    StudentFilter,
+    ClassNameFilter,
+)
 from drf_spectacular.utils import extend_schema
 from rest_framework.viewsets import ModelViewSet
 
 from core.__seedwork__.domain.exceptions import CompanyNotInHeader
 from core.campus.infra.campus_django_app.serializers import (
-  EmployeeSerializer,
-  StudentSerializer,
-  CampusSerializer,
-  EmployeeCreateSerializer,
-  StudentCreateSerializer, 
-  ClassNameSerializer,
+    EmployeeSerializer,
+    StudentSerializer,
+    CampusSerializer,
+    EmployeeCreateSerializer,
+    StudentCreateSerializer,
+    ClassNameSerializer,
 )
 from core.uploader.infra.uploader_django_app.models import Document
 from core.uploader.infra.uploader_django_app.serializers import DocumentUploadSerializer
@@ -69,22 +74,20 @@ class StudentViewSet(ModelViewSet):
         return StudentCreateSerializer
 
 
-
 class ClassNameModelViewSet(ModelViewSet):
     queryset = ClassName.objects.all()
     http_method_names = ["get", "post", "patch", "delete"]
+    filterset_class = ClassNameFilter
 
     def get_queryset(self):
         campus_id = getattr(self.request, "campus_id", None)
 
         if campus_id:
             return ClassName.objects.filter(campus__id=campus_id)
-        raise CompanyNotInHeader
+        else:
+            return ClassName.objects.all()
 
     def get_serializer_class(self):
         if self.action in ["list", "retrieve"]:
             return ClassNameSerializer
         return ClassNameSerializer
-    
-
-

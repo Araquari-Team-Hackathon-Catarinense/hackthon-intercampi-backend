@@ -70,27 +70,19 @@ def register(request):
             "name": request.data.get("name"),
             "email": request.data.get("email"),
             "cpf": request.data.get("cpf"),
-            "password": request.data.get("password")
+            "password": request.data.get("password"),
         }
 
         if User.objects.filter(email=user_data["email"]).exists():
-            error.append({
-                "email": "Email já cadastrado"
-            })
+            error.append({"email": "Email já cadastrado"})
 
         if User.objects.filter(cpf=user_data["cpf"]).exists():
-            error.append(
-                {
-                    "cpf": "CPF já cadastrado"
-                }
-            )
+            error.append({"cpf": "CPF já cadastrado"})
 
-        if Student.objects.filter(registration=request.data.get("registration")).exists():
-            error.append(
-                {
-                    "registration": "Matrícula já cadastrada"
-                }
-            )
+        if Student.objects.filter(
+            registration=request.data.get("registration")
+        ).exists():
+            error.append({"registration": "Matrícula já cadastrada"})
 
         if len(error) > 0:
             return Response(error, status=status.HTTP_400_BAD_REQUEST)
@@ -99,11 +91,10 @@ def register(request):
         user_serializer.is_valid(raise_exception=True)
         user_serializer.save()
         if user_serializer.instance is not None:
-            print(request.data.get("campus"))
             student_data = {
-                "campus": request.data.get("campus"),
+                "class_name": request.data.get("class_name"),
                 "registration": request.data.get("registration"),
-                "user": str(user_serializer.instance.id)
+                "user": str(user_serializer.instance.id),
             }
             student_serializer = StudentCreateSerializer(data=student_data)
             student_serializer.is_valid(raise_exception=True)
@@ -112,4 +103,4 @@ def register(request):
     except Exception as e:
         if User.objects.filter(email=user_data["email"]).exists():
             User.objects.filter(email=user_data["email"]).delete()
-        return Response(str(e), status=status.HTTP_400_BAD_REQUEST)    
+        return Response(str(e), status=status.HTTP_400_BAD_REQUEST)
