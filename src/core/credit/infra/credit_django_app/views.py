@@ -13,7 +13,7 @@ import time
 from django.http import JsonResponse
 from core.credit.domain.actions.get_payment_status import get_payment_status
 from core.cafeteria.infra.cafeteria_django_app.models import TurnstileEntrance
-import datetime
+from datetime import datetime
 from django.db.models import F
 from core.campus.infra.campus_django_app.models import Student
 
@@ -50,21 +50,20 @@ class PaymentSaveModelPatchAPIView(APIView):
                 id=payment_id
             )  # Ensure payment_id ends with a slash
             payment.status = request.data.get("status")
-            payment.status_detail = request.data.get("status_detail")
-            payment.transaction_amount = request.data.get("transaction_amount")
-            payment.payment_method = request.data.get("payment_method")
-            payment.date_created = request.data.get("date_created")
-            payment.qr_code = request.data.get("qr_code")
-            payment.qr_code_base64 = request.data.get("qr_code_base64")
-            payment.date_approved = request.data.get("date_approved")
-            payment.time_approved = datetime.time()
+            payment.date_approved = True
+            payment.time_approved = datetime.now()
             payment.student = Student.objects.filter(
                 user__id=request.data.get("student")
             ).first()
             payment.save()
 
-            credit = Credit.objects.get_or_create(student=payment.student)
-            credit.credit_value += payment.transaction_amount
+            print(payment.student)
+            print(payment.transaction_amount)
+
+            credit, created = Credit.objects.get_or_create(student=payment.student)
+            credit.credit_value += 30
+            print(credit.credit_value)
+            print(credit.credit_value + 30)
             credit.save()
             # Save the updated payment details
             return Response(status=status.HTTP_200_OK)  # Return success response
@@ -89,7 +88,15 @@ class PaymentAPIView(APIView):
 
             if response.status_code in [200, 201]:
                 payment_data = response.json()
-                print(response.json())
+
+                def parse_date(date_str):
+                    if date_str:
+                        try:
+                            # Parse o ISO 8601 e retorne no formato YYYY-MM-DD
+                            return datetime.fromisoformat(date_str).date()
+                        except ValueError:
+                            pass  # Deixe como None se a conversão falhar
+                    return None
 
                 payment_data_mapped = {
                     "id": payment_data.get("id"),
@@ -97,10 +104,10 @@ class PaymentAPIView(APIView):
                     "status_detail": payment_data.get("status_detail"),
                     "transaction_amount": payment_data.get("transaction_amount"),
                     "payment_method": payment_data.get("payment_method"),
-                    "date_created": payment_data.get("date_created"),
+                    "date_created": parse_date(payment_data.get("date_created")),
                     "qr_code": payment_data.get("qrCode"),
                     "qr_code_base64": payment_data.get("qrCodeBase64"),
-                    "date_approved": payment_data.get("date_approved"),
+                    "date_approved": parse_date(payment_data.get("date_approved")),
                 }
 
                 PaymentSaveModel.objects.create(**payment_data_mapped)
@@ -108,8 +115,9 @@ class PaymentAPIView(APIView):
                 # thread = threading.Thread(target=get_payment_status, args=(payment_data.get('uuid'), None))
                 # thread.start()
                 return Response(payment_data, status=response.status_code)
-        except:
-            return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        except Exception as e:
+            print(e)
+            return Response(str(2), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 class PaymentDetailAPIView(APIView):
