@@ -6,7 +6,7 @@ from rest_framework_simplejwt.serializers import AuthUser, TokenObtainPairSerial
 from rest_framework_simplejwt.tokens import Token
 
 from core.uploader.infra.uploader_django_app.admin import Document
-from core.campus.infra.campus_django_app.models import Student, Employee
+from core.campus.infra.campus_django_app.models import Campus, Student, Employee
 from django_project.settings import BASE_URL
 
 from .models import User
@@ -147,6 +147,7 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
 
         campus_json = None
         if user_type_data is not None:
+            print(user_type)
             if user_type == "student":
                 campus: Campus = user_type_data.class_name.campus
             elif user_type == "employee":
