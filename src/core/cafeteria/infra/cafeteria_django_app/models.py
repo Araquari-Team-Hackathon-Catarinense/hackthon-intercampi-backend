@@ -5,7 +5,7 @@ from core.campus.infra.campus_django_app.models import Campus
 
 
 class Cafeteria(BaseModel):
-    max_students = models.IntegerField(default=300)
+    max_students = models.IntegerField(default=300, blank=True, null=True)
     initial_time = models.TimeField()
     final_time = models.TimeField()
     campus = models.ForeignKey(

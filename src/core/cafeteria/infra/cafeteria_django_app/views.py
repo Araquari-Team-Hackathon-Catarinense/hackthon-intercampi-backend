@@ -1,3 +1,4 @@
+from typing import final
 from django.shortcuts import render
 import datetime
 from rest_framework.viewsets import ModelViewSet, ReadOnlyModelViewSet
@@ -161,5 +162,27 @@ def get_active_entrances(request):
 
         serializer = TurnstileEntranceSerializer(paginated_entrances, many=True)
         return paginator.get_paginated_response(serializer.data)
+    except Exception as e:
+        return Response(str(e), status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(["GET"])
+def get_month_entrances(request):
+    try:
+        today = datetime.date.today()
+        entrances = TurnstileEntrance.objects.filter(
+            date__month=today.month,
+            date__year=today.year,
+        )
+        last_month_entrances = TurnstileEntrance.objects.filter(
+            date__month=today.month - 1,
+            date__year=today.year,
+        )
+
+        data = {
+            "current_month_entrances": TurnstileEntranceSerializer(entrances, many=True).data,
+            "last_month_entrances": TurnstileEntranceSerializer(last_month_entrances, many=True).data,
+        }
+        return Response(data, status=status.HTTP_200_OK)
+
     except Exception as e:
         return Response(str(e), status=status.HTTP_400_BAD_REQUEST)
