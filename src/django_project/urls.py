@@ -22,9 +22,14 @@ from core.credit.infra.credit_django_app.views import (
 from core.cafeteria.infra.cafeteria_django_app.views import (
     register_entrance,
     get_active_entrances,
-    get_month_entrances
+    get_month_entrances,
 )
-from core.credit.infra.credit_django_app.views import PaymentAPIView, PaymentDetailAPIView, PaymentSaveModelPatchAPIView
+from core.credit.infra.credit_django_app.views import (
+    PaymentAPIView,
+    PaymentDetailAPIView,
+    PaymentSaveModelPatchAPIView,
+    get_payment_relatory,
+)
 from core.campus.infra.campus_django_app.views import ChatGPTGetAPIView
 
 from .router import router
@@ -95,11 +100,24 @@ urlpatterns = [
     path(
         f"api/{API_VERSION}/cafeteria/get_month_entrances/",
         get_month_entrances,
-        name="cafeteria-get_month_entrances"
+        name="cafeteria-get_month_entrances",
     ),
-    path("api/v1/payments/<int:payment_id>/", PaymentDetailAPIView.as_view(), name="payment"),
+    path(
+        "api/v1/payments/<int:payment_id>/",
+        PaymentDetailAPIView.as_view(),
+        name="payment",
+    ),
     path("api/v1/chatgpt-get/", ChatGPTGetAPIView.as_view(), name="chat-gpt-get"),
-    path("api/v1/payments-patch/<int:payment_id>/", PaymentSaveModelPatchAPIView.as_view(), name="payment"),
+    path(
+        "api/v1/payments-patch/<int:payment_id>/",
+        PaymentSaveModelPatchAPIView.as_view(),
+        name="payment",
+    ),
+    path(
+        "api/v1/payment/get-payment-relatory/",
+        get_payment_relatory,
+        name="payment-relatory",
+    ),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
