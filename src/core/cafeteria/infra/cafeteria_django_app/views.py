@@ -117,7 +117,6 @@ def register_entrance(request):
             else:
                 credit = Credit.objects.get(student=student)
                 cafeteria = Cafeteria.objects.get(campus=student.class_name.campus)
-
                 if credit.credit_value >= cafeteria.lunch_price:
                     TurnstileEntrance.objects.create(
                         student=student, entry_time=now(), date=today, payment=True
@@ -165,6 +164,7 @@ def get_active_entrances(request):
     except Exception as e:
         return Response(str(e), status=status.HTTP_400_BAD_REQUEST)
 
+
 @api_view(["GET"])
 def get_month_entrances(request):
     try:
@@ -179,8 +179,12 @@ def get_month_entrances(request):
         )
 
         data = {
-            "current_month_entrances": TurnstileEntranceSerializer(entrances, many=True).data,
-            "last_month_entrances": TurnstileEntranceSerializer(last_month_entrances, many=True).data,
+            "current_month_entrances": TurnstileEntranceSerializer(
+                entrances, many=True
+            ).data,
+            "last_month_entrances": TurnstileEntranceSerializer(
+                last_month_entrances, many=True
+            ).data,
         }
         return Response(data, status=status.HTTP_200_OK)
 
