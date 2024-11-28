@@ -136,11 +136,12 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
         user_type_data = None
 
         if Student.objects.filter(user__id=user_id).exists():
-            student: Student = Student.objects.get(user__id=user_id)
+            student: Student = Student.objects.filter(user__id=user_id).first()
             user_type_data = student
             user_type = "student"
         elif Employee.objects.filter(user__id=user_id).exists():
-            employee: Employee = Employee.objects.get(user__id=user_id)
+            print(Employee.objects.filter(user__id=user_id))
+            employee: Employee = Employee.objects.filter(user__id=user_id).first()
             user_type_data = employee
             user_type = "employee"
 
@@ -148,13 +149,13 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
         if user_type_data is not None:
             if user_type == "student":
                 campus: Campus = user_type_data.class_name.campus
-            elif user_type == "employee":   
+            elif user_type == "employee":
                 campus: Campus = user_type_data.campus
 
             campus_json = {
                 "id": str(campus.id),
                 "name": campus.name,
-                "email": campus.email
+                "email": campus.email,
             }
 
         user_data: dict = {
@@ -162,7 +163,7 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
             "email": user.email,
             "avatar": BASE_URL + user.avatar.url if user.avatar else None,
             "campus": campus_json,
-            "user_type": user_type
+            "user_type": user_type,
         }
 
         if user_type == "student":
