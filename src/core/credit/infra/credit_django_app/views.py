@@ -35,6 +35,25 @@ class PaymentSaveModelModelViewSet(ModelViewSet):
             return PaymentSaveModelSerializer
         return PaymentSaveModelSerializer
     
+
+class PaymentSaveModelPatchAPIView(APIView):
+        def patch(self, request, payment_id, format=None):
+            try:
+                payment = PaymentSaveModel.objects.get(id=payment_id)  # Ensure payment_id ends with a slash
+                payment.status = request.data.get('status')
+                payment.status_detail = request.data.get('status_detail')
+                payment.transaction_amount = request.data.get('transaction_amount')
+                payment.payment_method = request.data.get('payment_method')
+                payment.date_created = request.data.get('date_created')
+                payment.qr_code = request.data.get('qr_code')
+                payment.qr_code_base64 = request.data.get('qr_code_base64')
+                payment.date_approved = request.data.get('date_approved')
+                payment.save()  # Save the updated payment details
+                return Response(status=status.HTTP_200_OK)  # Return success response
+            except PaymentSaveModel.DoesNotExist:
+                return Response(status=status.HTTP_404_NOT_FOUND, data={"error": "Payment not found"})
+   
+
 class PaymentAPIView(APIView):
     PAYMENT_URL = f"{MICROSSERVICE_URL}/pay/"
 
@@ -73,9 +92,9 @@ class PaymentAPIView(APIView):
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
        
 class PaymentDetailAPIView(APIView):
-        PAYMENT_DETAIL_URL = f"{MICROSSERVICE_URL}/pay/{{}}/"
+        PAYMENT_DETAIL_URL = f"{MICROSSERVICE_URL}/pay/{{}}/"  # Ensure URL ends with a slash
 
-        def get(self, request, payment_id):
+        def get(self, request, payment_id, format=None):
             try:
                 response = requests.get(
                     self.PAYMENT_DETAIL_URL.format(payment_id),

@@ -23,7 +23,7 @@ from core.cafeteria.infra.cafeteria_django_app.views import (
     register_entrance,
     get_active_entrances,
 )
-from core.credit.infra.credit_django_app.views import PaymentAPIView, PaymentDetailAPIView
+from core.credit.infra.credit_django_app.views import PaymentAPIView, PaymentDetailAPIView, PaymentSaveModelPatchAPIView
 from core.campus.infra.campus_django_app.views import ChatGPTGetAPIView
 
 from .router import router
@@ -93,7 +93,7 @@ urlpatterns = [
     ),
     path("api/v1/payments/<int:payment_id>/", PaymentDetailAPIView.as_view(), name="payment"),
     path("api/v1/chatgpt-get/", ChatGPTGetAPIView.as_view(), name="chat-gpt-get"),
-    
+    path("api/v1/payments-patch/<int:payment_id>/", PaymentSaveModelPatchAPIView.as_view(), name="payment"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
